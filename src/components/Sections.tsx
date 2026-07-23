@@ -79,10 +79,10 @@ export function Stats({ isNightMode }: { isNightMode: boolean }) {
 
 export function Showcase({ isNightMode }: { isNightMode: boolean }) {
   const projects = [
-    { name: "Aura", category: "AI Strategy / UI Design", img: "/Day-Picture.png" },
+    { name: "Aura", category: "AI Strategy / UI Design", img: "/Day_Picture.png" },
     { name: "Nexus", category: "Brand Identity", img: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop" },
     { name: "Synthesis", category: "Web Experience", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" },
-    { name: "Cognitive", category: "Prototyping", img: "/Night-Picture.png" }
+    { name: "Cognitive", category: "Prototyping", img: "/Night_Picture.png" }
   ];
 
   return (
