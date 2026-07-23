@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@layer base {
+  :root {
+    --pull-easing: cubic-bezier(0.32, 0, 0.67, 0);
+    --return-easing: cubic-bezier(0.175, 0.885, 0.32, 1.4);
+    --active-toggle: #f5f8ea;
+  }
+  
+  body {
+    @apply bg-[#05070D];
+  }
+  body.light-theme {
+    @apply bg-gray-50;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .light-theme .glass {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-placeholder {
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .light-theme .hero-placeholder {
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.05), inset 0 0 20px rgba(0, 0, 0, 0.05);
+  }
+  .hero-glow-blue {
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
+  }
+  .hero-glow-purple {
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+  }
+  
+  .blur-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    z-index: 2;
+    pointer-events: none;
+    backdrop-filter: blur(25px) saturate(1.5);
+    -webkit-backdrop-filter: blur(25px) saturate(1.5);
+  }
+  
+  .blur-overlay-top {
+    top: 0;
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  }
+  
+  .blur-overlay-bottom {
+    bottom: 0;
+    mask-image: linear-gradient(to top, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+  }
+
+  .bg-front {
+    transition: transform 0.5s var(--return-easing), opacity 0.5s ease, background-image 0s 0.3s;
+  }
+
+  .pull-down {
+    transform: translateY(20vh) scale(1.1) !important;
+    opacity: 0.8 !important;
+    transition: transform 0.3s var(--pull-easing), opacity 0.3s ease !important;
+  }
+}
