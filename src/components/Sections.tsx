@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Sparkles, Palette, Zap, Code, Layout, Globe, Check, ArrowRight, Quote } from 'lucide-react';
+import { Sparkles, Palette, Zap, Code, Layout, Globe, Check, ArrowRight, Quote, Star } from 'lucide-react';
 
 export function Services({ isNightMode }: { isNightMode: boolean }) {
   const services = [
@@ -41,13 +41,17 @@ export function Services({ isNightMode }: { isNightMode: boolean }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-8 rounded-2xl glass ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'} hover:scale-[1.02] transition-transform`}
+              whileHover={{ y: -6 }}
+              className={`group relative p-8 rounded-2xl glass overflow-hidden transition-all duration-300 hover:shadow-2xl ${!isNightMode ? 'border-gray-200 bg-white/50 hover:shadow-blue-500/10' : 'border-white/10 bg-white/5 hover:shadow-blue-500/20'}`}
             >
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 ${isNightMode ? 'bg-white/10' : 'bg-black/5'}`}>
-                <svc.icon className={`w-6 h-6 ${isNightMode ? 'text-white' : 'text-black'}`} />
+              {/* Glow accent on hover */}
+              <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isNightMode ? 'bg-blue-500/20' : 'bg-blue-400/20'}`} />
+              
+              <div className={`relative w-14 h-14 rounded-2xl flex items-center justify-center mb-6 bg-gradient-to-br transition-all duration-300 ${isNightMode ? 'from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/40 group-hover:to-purple-500/40' : 'from-blue-500/10 to-purple-500/10 group-hover:from-blue-500/25 group-hover:to-purple-500/25'}`}>
+                <svc.icon className={`w-6 h-6 transition-transform duration-300 group-hover:scale-110 ${isNightMode ? 'text-white' : 'text-black'}`} />
               </div>
-              <h3 className="text-xl font-semibold mb-3">{svc.title}</h3>
-              <p className={`text-sm leading-relaxed ${isNightMode ? 'text-[#BFC7D5]' : 'text-gray-600'}`}>{svc.desc}</p>
+              <h3 className="relative text-xl font-semibold mb-3">{svc.title}</h3>
+              <p className={`relative text-sm leading-relaxed ${isNightMode ? 'text-[#BFC7D5]' : 'text-gray-600'}`}>{svc.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -67,10 +71,17 @@ export function Stats({ isNightMode }: { isNightMode: boolean }) {
     <section className={`w-full py-16 px-6 relative z-20 border-y ${isNightMode ? 'border-white/10 bg-white/5' : 'border-black/10 bg-black/5'}`}>
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
         {stats.map((stat, i) => (
-          <div key={i} className="text-center">
-            <h4 className="text-4xl md:text-5xl font-bold mb-2 tracking-tighter">{stat.value}</h4>
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="text-center"
+          >
+            <h4 className={`text-4xl md:text-5xl font-bold mb-2 tracking-tighter bg-clip-text text-transparent bg-gradient-to-br ${isNightMode ? 'from-white to-gray-400' : 'from-gray-900 to-gray-600'}`}>{stat.value}</h4>
             <p className={`text-sm uppercase tracking-widest font-medium ${isNightMode ? 'text-[#BFC7D5]/70' : 'text-gray-500'}`}>{stat.label}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>
@@ -122,14 +133,20 @@ export function Showcase({ isNightMode }: { isNightMode: boolean }) {
               transition={{ delay: i * 0.1 }}
               className="group cursor-pointer"
             >
-              <div className={`w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 relative glass ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'}`}>
+              <div className={`w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 relative glass shadow-lg transition-shadow duration-500 group-hover:shadow-2xl ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'}`}>
                 <img 
                    src={item.img} 
                    alt={item.name} 
-                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                 />
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                  <span className="text-white font-semibold flex items-center gap-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    View Project <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
               </div>
-              <h3 className="text-2xl font-semibold mb-2">{item.name}</h3>
+              <h3 className="text-2xl font-semibold mb-2 transition-colors duration-300 group-hover:text-blue-400">{item.name}</h3>
               <p className={`text-sm ${isNightMode ? 'text-[#BFC7D5]' : 'text-gray-600'}`}>{item.category}</p>
             </motion.div>
           ))}
@@ -166,15 +183,26 @@ export function Testimonials({ isNightMode }: { isNightMode: boolean }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-8 rounded-2xl glass flex flex-col justify-between ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'}`}
+              whileHover={{ y: -6 }}
+              className={`relative p-8 rounded-2xl glass flex flex-col justify-between transition-all duration-300 hover:shadow-2xl ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'}`}
             >
               <div>
-                <Quote className={`w-8 h-8 mb-6 ${isNightMode ? 'text-white/20' : 'text-black/10'}`} />
+                <Quote className={`w-8 h-8 mb-4 ${isNightMode ? 'text-white/20' : 'text-black/10'}`} />
+                <div className="flex gap-1 mb-6">
+                  {[...Array(5)].map((_, idx) => (
+                    <Star key={idx} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
                 <p className={`text-lg mb-8 leading-relaxed ${isNightMode ? 'text-[#BFC7D5]' : 'text-gray-700'}`}>"{testimonial.quote}"</p>
               </div>
-              <div>
-                <p className="font-semibold">{testimonial.author}</p>
-                <p className={`text-sm ${isNightMode ? 'text-gray-400' : 'text-gray-500'}`}>{testimonial.role}</p>
+              <div className={`flex items-center gap-3 pt-4 border-t ${isNightMode ? 'border-white/10' : 'border-black/5'}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-gradient-to-br ${isNightMode ? 'from-blue-500/30 to-purple-500/30 text-white' : 'from-blue-500/20 to-purple-500/20 text-gray-900'}`}>
+                  {testimonial.author.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div>
+                  <p className="font-semibold">{testimonial.author}</p>
+                  <p className={`text-sm ${isNightMode ? 'text-gray-400' : 'text-gray-500'}`}>{testimonial.role}</p>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -214,7 +242,7 @@ export function Pricing({ isNightMode }: { isNightMode: boolean }) {
           </motion.p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {plans.map((plan, i) => (
             <motion.div 
               key={i}
@@ -222,15 +250,16 @@ export function Pricing({ isNightMode }: { isNightMode: boolean }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`relative p-8 rounded-3xl glass ${plan.popular ? (isNightMode ? 'border-blue-500/50 bg-blue-500/5' : 'border-blue-500 bg-blue-50/50') : (!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5')}`}
+              whileHover={{ y: -8 }}
+              className={`relative p-8 rounded-3xl glass transition-all duration-300 ${plan.popular ? `md:-translate-y-4 shadow-2xl ${isNightMode ? 'border-blue-500/50 bg-blue-500/5 shadow-blue-500/20' : 'border-blue-500 bg-blue-50/50 shadow-blue-500/10'}` : `hover:shadow-xl ${!isNightMode ? 'border-gray-200 bg-white/50' : 'border-white/10 bg-white/5'}`}`}
             >
               {plan.popular && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase tracking-wider">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg">
                   Most Popular
                 </div>
               )}
               <h3 className="text-xl font-medium mb-2">{plan.name}</h3>
-              <div className="text-4xl font-bold mb-4">{plan.price}</div>
+              <div className={`text-4xl font-bold mb-4 ${plan.popular ? 'bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400' : ''}`}>{plan.price}</div>
               <p className={`text-sm mb-8 ${isNightMode ? 'text-[#BFC7D5]' : 'text-gray-600'}`}>{plan.desc}</p>
               
               <ul className="space-y-4 mb-8">
@@ -242,9 +271,9 @@ export function Pricing({ isNightMode }: { isNightMode: boolean }) {
                 ))}
               </ul>
               
-              <button className={`w-full py-3 rounded-full text-sm font-semibold transition-colors ${
+              <button className={`w-full py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-[1.02] ${
                 plan.popular 
-                  ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/30' 
                   : isNightMode ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'
               }`}>
                 Get Started
