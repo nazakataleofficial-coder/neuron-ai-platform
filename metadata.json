@@ -1,0 +1,6 @@
+{
+  "name": "AI Platform Landing",
+  "description": "A premium cinematic AI landing page featuring a floating glass navigation and central hero artwork.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
