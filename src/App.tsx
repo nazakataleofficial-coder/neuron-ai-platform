@@ -39,7 +39,7 @@ export default function App() {
           className={`hero-bg bg-front object-cover w-full h-full ${isSwitching ? 'pull-down' : ''}`} 
           style={{ opacity: isNightMode ? 0.8 : 0.6 }}
         >
-          <source src={isNightMode ? "/Night Video.mp4" : "/Day Video.mp4"} type="video/mp4" />
+<source src={isNightMode ? "/Night-Video.mp4" : "/Day-Video.mp4"} type="video/mp4" />
         </video>
       </div>
 
@@ -81,7 +81,7 @@ export default function App() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <source src={isNightMode ? "/Night Video.mp4" : "/Day Video.mp4"} type="video/mp4" />
+                  <source src={isNightMode ? "/Night-Video.mp4" : "/Day-Video.mp4"} type="video/mp4" />
                 </motion.video>
               </motion.div>
             </motion.div>
